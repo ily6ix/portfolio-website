@@ -1,1 +1,16 @@
-
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h2>Transforming complex data into intelligent solutions.</h2>
+  <p>Browse featured projects and demos below.</p>
+  <div class="projects">
+    {% for p in projects %}
+    <article class="card">
+      <h3>{{ p.name }}</h3>
+      <p>{{ p.desc }}</p>
+      <a class="btn" href="{{ p.url }}">View</a>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

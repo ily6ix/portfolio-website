@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+  <h2>Project: {{ name }}</h2>
+  <p>Project detail page — add README highlights, live demo links, and screenshots here.</p>
+  <a class="btn" href="{{ url_for('main.index') }}">Back</a>
+</section>
+{% endblock %}
