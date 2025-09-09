@@ -1,4 +1,4 @@
-Flask>=2.2
+flask==3.0.2
 gunicorn
 python-dotenv
-Flask-SQLAlchemy
+flask-SQLAlchemy
