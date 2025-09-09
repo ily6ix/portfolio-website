@@ -5,6 +5,6 @@ def create_app():
 
     @app.route("/")
     def home():
-        return "🚀 Flask is running on Vercel!"
+        return render_template("index.html")
 
     return app
