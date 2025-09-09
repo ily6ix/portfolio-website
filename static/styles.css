@@ -1,1 +1,20 @@
-
+:root{
+  --deep-navy: #0A192F;
+  --electric-blue: #3AB0FF;
+  --white: #F5F5F5;
+  --max-width: 980px;
+}
+*{box-sizing:border-box}
+body{font-family: Roboto, Arial, sans-serif; margin:0; color:var(--white); background:var(--deep-navy); line-height:1.5}
+.container{max-width:var(--max-width); margin:0 auto; padding:24px}
+.site-header{background:linear-gradient(90deg, rgba(10,25,47,1) 0%, rgba(26,40,65,1) 100%); border-bottom:1px solid rgba(255,255,255,0.04)}
+.logo{margin:0; font-family: Poppins, Arial, sans-serif; font-size:22px; color:var(--electric-blue)}
+.tagline{margin:4px 0 0 0; color:rgba(245,245,245,0.8)}
+.hero{padding:40px 0; text-align:center}
+.hero h2{font-size:28px; margin:0 0 8px}
+.projects{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:20px}
+.card{background:rgba(255,255,255,0.03); padding:16px; width:260px; border-radius:8px; text-align:left}
+.card h3{margin:0 0 8px; color:var(--electric-blue)}
+.btn{display:inline-block; padding:8px 12px; margin-top:12px; background:var(--electric-blue); color:var(--deep-navy); text-decoration:none; border-radius:6px}
+.site-footer{padding:20px 0; text-align:center; color:rgba(245,245,245,0.7); margin-top:40px}
+a{color:var(--electric-blue)}
