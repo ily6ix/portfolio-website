@@ -28,12 +28,141 @@
             color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(119, 0, 255, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 60%, rgba(0, 247, 255, 0.1) 0%, transparent 20%),
-                linear-gradient(to bottom, var(--darker), var(--dark));
+            position: relative;
         }
-        
+
+        /* Brain-inspired electric impulse background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(119, 0, 255, 0.15) 0%, transparent 15%),
+                radial-gradient(circle at 80% 70%, rgba(0, 247, 255, 0.15) 0%, transparent 15%),
+                radial-gradient(circle at 40% 80%, rgba(119, 0, 255, 0.1) 0%, transparent 15%),
+                radial-gradient(circle at 70% 20%, rgba(0, 247, 255, 0.1) 0%, transparent 15%),
+                linear-gradient(to bottom, var(--darker), var(--dark));
+            z-index: -2;
+        }
+
+        /* Neural network connections */
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .neural-path {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            height: 1px;
+            transform-origin: left center;
+            opacity: 0.3;
+            filter: blur(0.5px);
+        }
+
+        .neural-node {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: nodePulse 4s infinite;
+        }
+
+        /* Electric impulses */
+        .electric-impulse {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .impulse-1 {
+            top: 30%;
+            left: 20%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            animation: impulse 8s infinite;
+        }
+
+        .impulse-2 {
+            top: 60%;
+            left: 70%;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            animation: impulse 10s infinite 2s;
+        }
+
+        .impulse-3 {
+            top: 40%;
+            left: 50%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            animation: impulse 12s infinite 4s;
+        }
+
+        .impulse-4 {
+            top: 70%;
+            left: 30%;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            animation: impulse 9s infinite 1s;
+        }
+
+        /* Animations */
+        @keyframes impulse {
+            0% {
+                opacity: 0;
+                transform: scale(0.1);
+            }
+            5% {
+                opacity: 0.5;
+            }
+            10% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            15% {
+                opacity: 0;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+
+        @keyframes nodePulse {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.2);
+                box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+            }
+        }
+
+        @keyframes pathPulse {
+            0%, 100% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.5;
+                box-shadow: 0 0 5px var(--primary);
+            }
+        }
+
         /* Header & Navigation */
         header {
             position: fixed;
@@ -539,9 +668,30 @@
                 margin-bottom: 20px;
             }
         }
+        .download-btn {
+    padding: 8px 16px;
+    background-color: #0c141d;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+    background-color: #22303f;
+}
+
     </style>
 </head>
 <body>
+    <!-- Neural Network Background -->
+    <div class="neural-network" id="neuralNetwork"></div>
+    <div class="electric-impulse impulse-1"></div>
+    <div class="electric-impulse impulse-2"></div>
+    <div class="electric-impulse impulse-3"></div>
+    <div class="electric-impulse impulse-4"></div>
+
     <!-- Header & Navigation -->
     <header>
         <a href="#home" class="logo">GR<span></span></a>
@@ -551,6 +701,8 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
+            
+
         </ul>
     </header>
 
@@ -561,6 +713,8 @@
             <h2>Transforming Data into Intelligent Solutions</h2>
             <p>Hi, I'm a <span class="typed-text">AI/ML Engineer</span> passionate about creating innovative machine learning models.</p>
             <a href="#projects" class="btn">View My Work</a>
+        <a href="{{ url_for('download_cv') }}" class="download-btn">Download CV</a>
+
         </div>
         <div class="hero-bg"></div>
     </section>
@@ -568,13 +722,26 @@
     <!-- About Section -->
     <section class="about reveal" id="about">
         <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <h3>Creating intelligent systems that learn and adapt</h3>
-                <p>I am a dedicated AI/ML Engineer with expertise in developing machine learning models and deploying them to solve real-world problems. My passion lies in creating intelligent systems that can learn, adapt, and evolve.</p>
-                <p>With a strong foundation in mathematics, Software Engineering, and computer science, I specialize in transforming complex data into actionable insights .</p>
-                <p>My approach combines technical expertise with creative problem-solving to deliver robust AI solutions that exceed expectations.</p>
-            </div>
+     
+
+<div class="about-content">
+  <div class="about-text">
+    <h3>Software Developer | Final-Year Computer Science Student</h3>
+
+    <p>
+      I'm a results-driven Software Developer with 4 years of experience in <strong>Java</strong> and technologies like <strong>JEE, GlassFish, JDBC, JFrame</strong>, and <strong>Session Beans</strong>. I’ve built reliable and scalable software across enterprise and desktop environments.
+    </p>
+
+    <p>
+      Over the past 6 months, I’ve also worked with <strong>Python</strong> and its machine learning stack — including <strong>TensorFlow, Flask, Pandas, NumPy</strong>, and <strong>MySQL</strong> — building intelligent, data-driven applications.
+    </p>
+
+    <p>
+      Currently in my final year of a Computer Science degree (graduating <strong>2026</strong>), I’m excited to bring my skills to teams solving real-world problems with clean code, smart systems, and a focus on impact.
+    </p>
+  </div>
+</div>
+
             <div class="skills-grid">
                 <div class="skill-item">
                     <i class="fas fa-brain"></i>
@@ -609,35 +776,40 @@
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects-grid">
             <div class="project-card">
-                <div class="project-img">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <div class="project-info">
-                    <h3>Sign Language Transcriber(ASL)</h3>
-                    <p>SignVision uses computer vision to detect and transcribe sign language gestures into text or speech in real-time..</p>
-                    <div class="project-tags">
-                        <span>Typescript</span>
-                        <span>Gemeni API</span>
-                      
-                    </div>
-                    <a href="https://sign-language-transcriber.vercel.app/" class="btn">View Project</a>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-img">
-                    <i class="fas fa-microchip"></i>
-                </div>
-                <div class="project-info">
-                    <h3>Computer Vision API</h3>
-                    <p>A real-time object detection system that processes video streams with minimal latency and high accuracy.</p>
-                    <div class="project-tags">
-                        <span>OpenCV</span>
-                        <span>YOLO</span>
-                        <span>FastAPI</span>
-                    </div>
-                    <a href="#" class="btn">View Project</a>
-                </div>
-            </div>
+    <div class="project-img">
+        <i class="fas fa-sign-language"></i> <!-- Better aligned icon -->
+    </div>
+    <div class="project-info">
+        <h3>Sign Language Transcriber (ASL)</h3>
+        <p>SignVision uses computer vision to detect and transcribe sign language gestures into text or speech in real-time.</p>
+        <div class="project-tags">
+            <span>TypeScript</span>
+            <span>React</span>
+            <span>Gemini API</span>
+        </div>
+        <a href="https://sign-language-transcriber.vercel.app/" class="btn">View Project</a>
+        <a href="https://github.com/ily6ix/sign-language-transcriber" class="btn">View Repo</a>
+    </div>
+</div>
+
+           <div class="project-card">
+    <div class="project-img">
+        <i class="fas fa-file-alt"></i> <!-- Replaced icon -->
+    </div>
+    <div class="project-info">
+        <h3>AI Resume Builder</h3>
+        <p>An AI-powered tool for generating professional resumes efficiently and accurately.</p>
+        <div class="project-tags">
+            <span>Figma</span>
+            <span>Typescript</span>
+            <span>React</span>
+            
+        </div>
+        <a href="https://emoji-ruby-95721418.figma.site/" class="btn">View Project</a>
+        <a href="https://github.com/ily6ix/ai-resume-builder-app" class="btn">View Repo</a>
+    </div>
+</div>
+
             <div class="project-card">
                 <div class="project-img">
                     <i class="fas fa-network-wired"></i>
@@ -650,7 +822,7 @@
                         <span>NumPy</span>
                         <span>CUDA</span>
                     </div>
-                    <a href="#" class="btn">View Project</a>
+                    <a href="https://github.com/HouseOfTec/AIBias/blob/main/HouseOfTec.ipynb" class="btn">View Project</a>
                 </div>
             </div>
         </div>
@@ -659,12 +831,22 @@
     <!-- Skills Section -->
     <section class="skills reveal" id="skills">
         <h2 class="section-title">Technical Expertise</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <h3>Mastering the tools of artificial intelligence</h3>
-                <p>My technical skills span the entire machine learning pipeline, from data collection and preprocessing to model deployment and monitoring. I specialize in creating scalable, efficient AI systems that deliver measurable results.</p>
-                <p>I continuously update my skill set to stay at the forefront of AI research and development, ensuring that my solutions leverage the latest advancements in the field.</p>
-            </div>
+
+<div class="about-content">
+  <div class="about-text">
+    <h3>Building Intelligent, Scalable Software Solutions</h3>
+    
+    <p>
+      I bring strong expertise in <strong>Java</strong> and <strong>Python</strong>, using them to design, develop, and deploy robust applications across a range of domains. My technical abilities span full-cycle software development — from architecting efficient systems to implementing intelligent features powered by <strong>machine learning</strong>.
+    </p>
+
+
+    <p>
+      I stay current with the latest advancements in software engineering and AI, constantly refining my toolkit to exceed expectations and solve real-world challenges with innovation and precision.
+    </p>
+  </div>
+</div>
+
             <div class="skills-grid">
                 <div class="skill-item">
                     <i class="fab fa-python"></i>
@@ -718,11 +900,11 @@
                     <i class="fas fa-phone"></i>
                     <div>
                         <h3>Phone</h3>
-                        <p>(+27)69 465 2340</p>
+                        <p>+27 69 465 2340</p>
                     </div>
                 </div>
             </div>
-            <form id="contact-form" class="contact-form" action="https://formspree.io/f/xdoqnpzw" method="POST">
+            <form id="contact-form" class="contact-form" action="https://formspree.io/f/mrbajvnv" method="POST">
                 <div id="form-status" class="form-status"></div>
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -743,12 +925,46 @@
 
     <!-- Footer -->
     <footer>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-kaggle"></i></a>
-        </div>
+        <!-- Include Font Awesome CSS if not already included -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+
+<div class="social-links">
+  <a href="https://github.com/ily6ix" target="_blank" rel="noopener" aria-label="GitHub">
+    <i class="fab fa-github"></i>
+  </a>
+
+  <a href="https://www.coursera.org/user/983790dc7bcef456b06bd048879a7b0b" target="_blank" rel="noopener" aria-label="Coursera" style="font-weight: bolder;">C
+</a>
+
+
+  <a href="https://www.linkedin.com/in/goitseone-rakgomo-614242279/" target="_blank" rel="noopener" aria-label="LinkedIn">
+    <i class="fab fa-linkedin"></i>
+  </a>
+</div>
+
+<style>
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* space between icons */
+  font-size: 24px; /* size for font-awesome icons */
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.social-links img {
+  width: 24px;
+  height: 24px;
+  filter: grayscale(100%) brightness(0%) contrast(100%);
+  object-fit: contain;
+}
+</style>
+
         <div class="copyright">
             <p>&copy; 2023 AI/ML Engineer Portfolio. All rights reserved.</p>
         </div>
@@ -807,8 +1023,52 @@
             }
         }
         
+        // Neural network background generation
+        function createNeuralNetwork() {
+            const container = document.getElementById('neuralNetwork');
+            
+            // Create nodes
+            for (let i = 0; i < 20; i++) {
+                const node = document.createElement('div');
+                node.classList.add('neural-node');
+                node.style.left = `${Math.random() * 100}%`;
+                node.style.top = `${Math.random() * 100}%`;
+                node.style.animationDelay = `${Math.random() * 4}s`;
+                container.appendChild(node);
+            }
+            
+            // Create connections
+            const nodes = document.querySelectorAll('.neural-node');
+            nodes.forEach((node, index) => {
+                if (index < nodes.length - 1) {
+                    const nextNode = nodes[index + 1];
+                    
+                    const x1 = parseFloat(node.style.left);
+                    const y1 = parseFloat(node.style.top);
+                    const x2 = parseFloat(nextNode.style.left);
+                    const y2 = parseFloat(nextNode.style.top);
+                    
+                    // Calculate distance and angle between nodes
+                    const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                    const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                    
+                    // Create connection path
+                    const path = document.createElement('div');
+                    path.classList.add('neural-path');
+                    path.style.width = `${distance}%`;
+                    path.style.left = `${x1}%`;
+                    path.style.top = `${y1}%`;
+                    path.style.transform = `rotate(${angle}deg)`;
+                    path.style.animationDelay = `${Math.random() * 2}s`;
+                    
+                    container.appendChild(path);
+                }
+            });
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(type, newTextDelay + 100);
+            createNeuralNetwork();
             
             // Handle form submission
             const form = document.getElementById('contact-form');
