@@ -1,15 +1,20 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 import os
-
-# absolute paths for Vercel serverless
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 app = Flask(
     __name__,
-    template_folder=os.path.join(BASE_DIR, "templates"),
-    static_folder=os.path.join(BASE_DIR, "static")
+    template_folder=os.path.join(os.path.dirname(__file__), "../templates"),
+    static_folder=os.path.join(os.path.dirname(__file__), "../static")
 )
 
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route("/download-cv")
+def download_cv():
+    return send_from_directory(
+        directory=os.path.join(os.path.dirname(__file__), "../static/files"),
+        path="cv.pdf",
+        as_attachment=True
+    )
