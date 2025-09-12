@@ -67,6 +67,7 @@
             transform-origin: left center;
             opacity: 0.3;
             filter: blur(0.5px);
+            transition: transform 0.5s ease-out, opacity 0.5s ease;
         }
 
         .neural-node {
@@ -77,6 +78,7 @@
             border-radius: 50%;
             opacity: 0;
             animation: nodePulse 4s infinite;
+            transition: transform 0.5s ease-out, opacity 0.5s ease;
         }
 
         /* Electric impulses */
@@ -88,6 +90,7 @@
             opacity: 0;
             pointer-events: none;
             z-index: -1;
+            transition: transform 0.5s ease-out;
         }
 
         .impulse-1 {
@@ -161,6 +164,20 @@
                 opacity: 0.5;
                 box-shadow: 0 0 5px var(--primary);
             }
+        }
+
+        /* Electric impulse travel effect */
+        .impulse-travel {
+            position: absolute;
+            width: 20px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+            opacity: 0;
+            filter: blur(2px);
+            box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* Header & Navigation */
@@ -501,7 +518,7 @@
         }
         
         .contact-item i {
-            font-size: 1.5rem;<a href="{{ url_for('download_cv') }}" class="download-btn" id="downloadBtn">
+            font-size: 1.5rem;
             color: var(--primary);
             width: 40px;
             height: 40px;
@@ -669,19 +686,18 @@
             }
         }
         .download-btn {
-    padding: 8px 16px;
-    background-color: #0c141d;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    margin-left: 20px;
-    transition: background-color 0.3s ease;
-}
+            padding: 8px 16px;
+            background-color: #0c141d;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-left: 20px;
+            transition: background-color 0.3s ease;
+        }
 
-.download-btn:hover {
-    background-color: #22303f;
-}
-
+        .download-btn:hover {
+            background-color: #22303f;
+        }
     </style>
 </head>
 <body>
@@ -701,8 +717,6 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
-            
-
         </ul>
     </header>
 
@@ -713,8 +727,7 @@
             <h2>Transforming Data into Intelligent Solutions</h2>
             <p>Hi, I'm a <span class="typed-text">AI/ML Engineer</span> passionate about creating innovative machine learning models.</p>
             <a href="#projects" class="btn">View My Work</a>
-        <a href="/download-cv" class="download-btn">Download CV</a>
-
+            <a href="/download-cv" class="download-btn">Download CV</a>
         </div>
         <div class="hero-bg"></div>
     </section>
@@ -722,26 +735,19 @@
     <!-- About Section -->
     <section class="about reveal" id="about">
         <h2 class="section-title">About Me</h2>
-     
-
-<div class="about-content">
-  <div class="about-text">
-    <h3>Software Developer | Final-Year Computer Science Student</h3>
-
-    <p>
-      I'm a results-driven Software Developer with 4 years of experience in <strong>Java</strong> and technologies like <strong>JEE, GlassFish, JDBC, JFrame</strong>, and <strong>Session Beans</strong>. I’ve built reliable and scalable software across enterprise and desktop environments.
-    </p>
-
-    <p>
-      Over the past 6 months, I’ve also worked with <strong>Python</strong> and its machine learning stack — including <strong>TensorFlow, Flask, Pandas, NumPy</strong>, and <strong>MySQL</strong> — building intelligent, data-driven applications.
-    </p>
-
-    <p>
-      Currently in my final year of a Computer Science degree (graduating <strong>2026</strong>), I’m excited to bring my skills to teams solving real-world problems with clean code, smart systems, and a focus on impact.
-    </p>
-  </div>
-</div>
-
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Software Developer | Final-Year Computer Science Student</h3>
+                <p>
+                    I'm a results-driven Software Developer with 4 years of experience in <strong>Java</strong> and technologies like <strong>JEE, GlassFish, JDBC, JFrame</strong>, and <strong>Session Beans</strong>. I've built reliable and scalable software across enterprise and desktop environments.
+                </p>
+                <p>
+                    Over the past 6 months, I've also worked with <strong>Python</strong> and its machine learning stack — including <strong>TensorFlow, Flask, Pandas, NumPy</strong>, and <strong>MySQL</strong> — building intelligent, data-driven applications.
+                </p>
+                <p>
+                    Currently in my final year of a Computer Science degree (graduating <strong>2026</strong>), I'm excited to bring my skills to teams solving real-world problems with clean code, smart systems, and a focus on impact.
+                </p>
+            </div>
             <div class="skills-grid">
                 <div class="skill-item">
                     <i class="fas fa-brain"></i>
@@ -776,40 +782,37 @@
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects-grid">
             <div class="project-card">
-    <div class="project-img">
-        <i class="fas fa-sign-language"></i> <!-- Better aligned icon -->
-    </div>
-    <div class="project-info">
-        <h3>Sign Language Transcriber (ASL)</h3>
-        <p>SignVision uses computer vision to detect and transcribe sign language gestures into text or speech in real-time.</p>
-        <div class="project-tags">
-            <span>TypeScript</span>
-            <span>React</span>
-            <span>Gemini API</span>
-        </div>
-        <a href="https://sign-language-transcriber.vercel.app/" class="btn">View Project</a>
-        <a href="https://github.com/ily6ix/sign-language-transcriber" class="btn">View Repo</a>
-    </div>
-</div>
-
-           <div class="project-card">
-    <div class="project-img">
-        <i class="fas fa-file-alt"></i> <!-- Replaced icon -->
-    </div>
-    <div class="project-info">
-        <h3>AI Resume Builder</h3>
-        <p>An AI-powered tool for generating professional resumes efficiently and accurately.</p>
-        <div class="project-tags">
-            <span>Figma</span>
-            <span>Typescript</span>
-            <span>React</span>
-            
-        </div>
-        <a href="https://emoji-ruby-95721418.figma.site/" class="btn">View Project</a>
-        <a href="https://github.com/ily6ix/ai-resume-builder-app" class="btn">View Repo</a>
-    </div>
-</div>
-
+                <div class="project-img">
+                    <i class="fas fa-sign-language"></i>
+                </div>
+                <div class="project-info">
+                    <h3>Sign Language Transcriber (ASL)</h3>
+                    <p>SignVision uses computer vision to detect and transcribe sign language gestures into text or speech in real-time.</p>
+                    <div class="project-tags">
+                        <span>TypeScript</span>
+                        <span>React</span>
+                        <span>Gemini API</span>
+                    </div>
+                    <a href="https://sign-language-transcriber.vercel.app/" class="btn">View Project</a>
+                    <a href="https://github.com/ily6ix/sign-language-transcriber" class="btn">View Repo</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="project-info">
+                    <h3>AI Resume Builder</h3>
+                    <p>An AI-powered tool for generating professional resumes efficiently and accurately.</p>
+                    <div class="project-tags">
+                        <span>Figma</span>
+                        <span>Typescript</span>
+                        <span>React</span>
+                    </div>
+                    <a href="https://emoji-ruby-95721418.figma.site/" class="btn">View Project</a>
+                    <a href="https://github.com/ily6ix/ai-resume-builder-app" class="btn">View Repo</a>
+                </div>
+            </div>
             <div class="project-card">
                 <div class="project-img">
                     <i class="fas fa-network-wired"></i>
@@ -831,28 +834,22 @@
     <!-- Skills Section -->
     <section class="skills reveal" id="skills">
         <h2 class="section-title">Technical Expertise</h2>
-
-<div class="about-content">
-  <div class="about-text">
-    <h3>Building Intelligent, Scalable Software Solutions</h3>
-    
-    <p>
-      I bring strong expertise in <strong>Java</strong> and <strong>Python</strong>, using them to design, develop, and deploy robust applications across a range of domains. My technical abilities span full-cycle software development — from architecting efficient systems to implementing intelligent features powered by <strong>machine learning</strong>.
-    </p>
-
-
-    <p>
-      I stay current with the latest advancements in software engineering and AI, constantly refining my toolkit to exceed expectations and solve real-world challenges with innovation and precision.
-    </p>
-  </div>
-</div>
-
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Building Intelligent, Scalable Software Solutions</h3>
+                <p>
+                    I bring strong expertise in <strong>Java</strong> and <strong>Python</strong>, using them to design, develop, and deploy robust applications across a range of domains. My technical abilities span full-cycle software development — from architecting efficient systems to implementing intelligent features powered by <strong>machine learning</strong>.
+                </p>
+                <p>
+                    I stay current with the latest advancements in software engineering and AI, constantly refining my toolkit to exceed expectations and solve real-world challenges with innovation and precision.
+                </p>
+            </div>
             <div class="skills-grid">
                 <div class="skill-item">
                     <i class="fab fa-python"></i>
                     <h4>Python</h4>
                 </div>
-                 <div class="skill-item">
+                <div class="skill-item">
                     <i class="fab fa-java"></i>
                     <h4>Java</h4>
                 </div>
@@ -872,7 +869,6 @@
                     <i class="fas fa-table"></i>
                     <h4>Data Preprocessing</h4>
                 </div>
-                
             </div>
         </div>
     </section>
@@ -925,46 +921,15 @@
 
     <!-- Footer -->
     <footer>
-        <!-- Include Font Awesome CSS if not already included -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
-
-<div class="social-links">
-  <a href="https://github.com/ily6ix" target="_blank" rel="noopener" aria-label="GitHub">
-    <i class="fab fa-github"></i>
-  </a>
-
-  <a href="https://www.coursera.org/user/983790dc7bcef456b06bd048879a7b0b" target="_blank" rel="noopener" aria-label="Coursera" style="font-weight: bolder;">C
-</a>
-
-
-  <a href="https://www.linkedin.com/in/goitseone-rakgomo-614242279/" target="_blank" rel="noopener" aria-label="LinkedIn">
-    <i class="fab fa-linkedin"></i>
-  </a>
-</div>
-
-<style>
-.social-links {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* space between icons */
-  font-size: 24px; /* size for font-awesome icons */
-}
-
-.social-links a {
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-}
-
-.social-links img {
-  width: 24px;
-  height: 24px;
-  filter: grayscale(100%) brightness(0%) contrast(100%);
-  object-fit: contain;
-}
-</style>
-
+        <div class="social-links">
+            <a href="https://github.com/ily6ix" target="_blank" rel="noopener" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.coursera.org/user/983790dc7bcef456b06bd048879a7b0b" target="_blank" rel="noopener" aria-label="Coursera" style="font-weight: bolder;">C</a>
+            <a href="https://www.linkedin.com/in/goitseone-rakgomo-614242279/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+        </div>
         <div class="copyright">
             <p>&copy; 2023 AI/ML Engineer Portfolio. All rights reserved.</p>
         </div>
@@ -990,6 +955,9 @@
                     reveals[i].classList.add('active');
                 }
             }
+            
+            // Update neural network based on scroll
+            updateNeuralNetworkOnScroll();
         });
         
         // Typing effect
@@ -1024,45 +992,181 @@
         }
         
         // Neural network background generation
+        let neuralNodes = [];
+        let neuralPaths = [];
+        
         function createNeuralNetwork() {
             const container = document.getElementById('neuralNetwork');
             
             // Create nodes
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 30; i++) {
                 const node = document.createElement('div');
                 node.classList.add('neural-node');
-                node.style.left = `${Math.random() * 100}%`;
-                node.style.top = `${Math.random() * 100}%`;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                node.style.left = `${x}%`;
+                node.style.top = `${y}%`;
                 node.style.animationDelay = `${Math.random() * 4}s`;
                 container.appendChild(node);
+                
+                // Store node data
+                neuralNodes.push({
+                    element: node,
+                    x: x,
+                    y: y,
+                    baseX: x,
+                    baseY: y
+                });
             }
             
             // Create connections
-            const nodes = document.querySelectorAll('.neural-node');
-            nodes.forEach((node, index) => {
-                if (index < nodes.length - 1) {
-                    const nextNode = nodes[index + 1];
-                    
-                    const x1 = parseFloat(node.style.left);
-                    const y1 = parseFloat(node.style.top);
-                    const x2 = parseFloat(nextNode.style.left);
-                    const y2 = parseFloat(nextNode.style.top);
-                    
-                    // Calculate distance and angle between nodes
-                    const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-                    const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-                    
-                    // Create connection path
-                    const path = document.createElement('div');
-                    path.classList.add('neural-path');
-                    path.style.width = `${distance}%`;
-                    path.style.left = `${x1}%`;
-                    path.style.top = `${y1}%`;
-                    path.style.transform = `rotate(${angle}deg)`;
-                    path.style.animationDelay = `${Math.random() * 2}s`;
-                    
-                    container.appendChild(path);
+            neuralNodes.forEach((node, index) => {
+                // Connect each node to 2-3 other random nodes
+                const connections = Math.floor(Math.random() * 2) + 2;
+                for (let i = 0; i < connections; i++) {
+                    const targetIndex = Math.floor(Math.random() * neuralNodes.length);
+                    if (targetIndex !== index) {
+                        const targetNode = neuralNodes[targetIndex];
+                        
+                        const x1 = parseFloat(node.element.style.left);
+                        const y1 = parseFloat(node.element.style.top);
+                        const x2 = parseFloat(targetNode.element.style.left);
+                        const y2 = parseFloat(targetNode.element.style.top);
+                        
+                        // Calculate distance and angle between nodes
+                        const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                        const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                        
+                        // Create connection path
+                        const path = document.createElement('div');
+                        path.classList.add('neural-path');
+                        path.style.width = `${distance}%`;
+                        path.style.left = `${x1}%`;
+                        path.style.top = `${y1}%`;
+                        path.style.transform = `rotate(${angle}deg)`;
+                        path.style.animationDelay = `${Math.random() * 2}s`;
+                        
+                        container.appendChild(path);
+                        
+                        // Store path data
+                        neuralPaths.push({
+                            element: path,
+                            source: node,
+                            target: targetNode,
+                            distance: distance,
+                            angle: angle
+                        });
+                    }
                 }
+            });
+            
+            // Create traveling impulses
+            createTravelingImpulses();
+        }
+        
+        // Create traveling electric impulses
+        function createTravelingImpulses() {
+            const container = document.getElementById('neuralNetwork');
+            
+            // Create several traveling impulses
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const impulse = document.createElement('div');
+                    impulse.classList.add('impulse-travel');
+                    container.appendChild(impulse);
+                    
+                    // Start the impulse animation
+                    animateImpulse(impulse);
+                }, i * 2000);
+            }
+        }
+        
+        // Animate a single traveling impulse
+        function animateImpulse(impulse) {
+            if (neuralPaths.length === 0) return;
+            
+            // Choose a random path
+            const pathIndex = Math.floor(Math.random() * neuralPaths.length);
+            const path = neuralPaths[pathIndex];
+            
+            const sourceX = path.source.x;
+            const sourceY = path.source.y;
+            const targetX = path.target.x;
+            const targetY = path.target.y;
+            
+            // Position the impulse at the source node
+            impulse.style.left = `${sourceX}%`;
+            impulse.style.top = `${sourceY}%`;
+            impulse.style.opacity = '1';
+            impulse.style.transform = `rotate(${path.angle}deg)`;
+            
+            // Animate along the path
+            let progress = 0;
+            const duration = 1500 + Math.random() * 1000;
+            const startTime = Date.now();
+            
+            function updateImpulse() {
+                const elapsed = Date.now() - startTime;
+                progress = elapsed / duration;
+                
+                if (progress < 1) {
+                    // Calculate current position
+                    const currentX = sourceX + (targetX - sourceX) * progress;
+                    const currentY = sourceY + (targetY - sourceY) * progress;
+                    
+                    // Update impulse position
+                    impulse.style.left = `${currentX}%`;
+                    impulse.style.top = `${currentY}%`;
+                    
+                    requestAnimationFrame(updateImpulse);
+                } else {
+                    // Animation complete, restart with a new path
+                    impulse.style.opacity = '0';
+                    setTimeout(() => {
+                        animateImpulse(impulse);
+                    }, 500 + Math.random() * 1000);
+                }
+            }
+            
+            requestAnimationFrame(updateImpulse);
+        }
+        
+        // Update neural network based on scroll position
+        function updateNeuralNetworkOnScroll() {
+            const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            
+            // Adjust node positions based on scroll
+            neuralNodes.forEach(node => {
+                const moveX = (Math.random() - 0.5) * 10 * scrollPercent;
+                const moveY = (Math.random() - 0.5) * 10 * scrollPercent;
+                
+                node.element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                node.x = node.baseX + (moveX / window.innerWidth * 100);
+                node.y = node.baseY + (moveY / window.innerHeight * 100);
+            });
+            
+            // Update path positions and rotations
+            neuralPaths.forEach(path => {
+                const sourceX = path.source.x;
+                const sourceY = path.source.y;
+                const targetX = path.target.x;
+                const targetY = path.target.y;
+                
+                // Recalculate distance and angle
+                const distance = Math.sqrt(Math.pow(targetX - sourceX, 2) + Math.pow(targetY - sourceY, 2));
+                const angle = Math.atan2(targetY - sourceY, targetX - sourceX) * 180 / Math.PI;
+                
+                // Update path
+                path.element.style.width = `${distance}%`;
+                path.element.style.left = `${sourceX}%`;
+                path.element.style.top = `${sourceY}%`;
+                path.element.style.transform = `rotate(${angle}deg)`;
+            });
+            
+            // Adjust electric impulse intensity based on scroll
+            const impulses = document.querySelectorAll('.electric-impulse');
+            impulses.forEach(impulse => {
+                impulse.style.opacity = 0.3 + (scrollPercent * 0.3);
             });
         }
         
