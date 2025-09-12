@@ -13,8 +13,9 @@ def home():
 
 @app.route("/download-cv")
 def download_cv():
+    # Fixed the path parameter - it should be the filename only
     return send_from_directory(
         directory=os.path.join(os.path.dirname(__file__), "../static/files"),
-        path="cv.pdf",
+        filename="cv.pdf",  # Changed from 'path' to 'filename'
         as_attachment=True
     )
