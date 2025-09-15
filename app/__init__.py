@@ -11,11 +11,12 @@ app = Flask(
 def home():
     return render_template("index.html")
 
+import os
+from flask import send_from_directory
+
 @app.route("/download-cv")
 def download_cv():
-    # Fixed the path parameter - it should be the filename only
-    return send_from_directory(
-        directory=os.path.join(os.path.dirname(__file__), "../static/files"),
-        filename="cv.pdf",  # Changed from 'path' to 'filename'
-        as_attachment=True
-    )
+    # Get absolute path to the folder containing cv.pdf
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # go up from 'app' folder
+    cv_folder = os.path.join(base_dir, "static", "files")
+    return send_from_directory(cv_folder, "cv.pdf", as_attachment=True)
