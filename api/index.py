@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_from_directory
 import os
+from werkzeug.exceptions import NotFound
 
 app = Flask(
     __name__,
@@ -11,7 +12,7 @@ app = Flask(
 def home():
     return render_template("index.html")
 
-from werkzeug.exceptions import NotFound
+
 
 @app.route("/download-cv")
 def download_cv():
