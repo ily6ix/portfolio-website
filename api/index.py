@@ -48,5 +48,14 @@ def generate_description(title):
     normalized_title = title.replace('_', ' ').strip()
     return desc_map.get(normalized_title, "A professional certification showcasing technical skills and achievements.")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route("/download-cv")
+def download_cv():
+    try:
+        from pathlib import Path
+        base_dir = Path(__file__).resolve().parent.parent
+        cv_folder = base_dir / "static" / "files"
+        return send_from_directory(str(cv_folder), "cv.pdf", as_attachment=True)
+    except NotFound:
+        return "CV not found", 404
+
+
